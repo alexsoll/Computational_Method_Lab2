@@ -1,6 +1,7 @@
 import matplotlib as mp
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.ticker as ticker
 
 import math
 
@@ -35,6 +36,7 @@ def RightConst(y, l, tau):
     return x
 
 def main(args):
+    print(args)
     T = args[0] ; l = args[1] ; a = args[2] ; h = args[3] ; tau = args[4]
     Fi_a = args[5] ; Fi_b = args[6] ; Fi_c = args[7]
     B_a = args[8] ; B_b = args[9] ; B_c = args[10] ; B_d = args[11] ; B_e = args[12]
@@ -89,13 +91,11 @@ def main(args):
         tmp_y = RightConst(yb, l, tau)
         yb = np.linalg.solve(B, tmp_y)
 
-
-    print(y)
-    print(y0)
-    print(yb)
-
     x = [i for i in range(0, l + 1)]
     plt.plot(x, yb, color='black')
+    plt.grid()
+    plt.minorticks_on()
+    plt.grid(which='minor', color = 'gray', linestyle = ':')
     plt.plot(x, y0, color='blue')
     plt.plot(x, b, color='red')
     plt.show()

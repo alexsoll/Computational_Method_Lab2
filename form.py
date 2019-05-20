@@ -14,22 +14,27 @@ class form:
         self.labelT.pack(padx = 3, pady = 7, side = LEFT)
         self.T = Entry(frame, width = 5)
         self.T.pack(side = LEFT)
+        self.T.insert(0, "1")
         self.labelL = Label(frame, text = "l : ")
         self.labelL.pack(side = LEFT)
         self.l = Entry(frame, width = 5)
         self.l.pack(side = LEFT)
+        self.l.insert(0, "42")
         self.labelA = Label(frame, text = "a : ")
         self.labelA.pack(side = LEFT)
         self.a = Entry(frame, width = 5)
         self.a.pack(side = LEFT)
+        self.a.insert(0, "2")
         self.labelH = Label(frame, text = "h : ")
         self.labelH.pack(side = LEFT)
         self.h = Entry(frame, width = 5)
         self.h.pack(side = LEFT)
+        self.h.insert(0, "1")
         self.labelTau = Label(frame, text = "tau : ")
         self.labelTau.pack(side = LEFT)
         self.tau = Entry(frame, width = 5)
         self.tau.pack(padx = 3, pady = 7, side = LEFT)
+        self.tau.insert(0, "1")
 
         self.coefFi = []
         self.labelFi = []
@@ -47,6 +52,10 @@ class form:
         self.labelFi[0].config(text = " + ")
         self.labelFi[1].config(text = " cos(pi * x / l) + ")
         self.labelFi[2].config(text = " cos(2 * pi * x / l) ")
+
+        self.coefFi[0].insert(0, "3")
+        self.coefFi[1].insert(0, "1")
+        self.coefFi[2].insert(0, "1")
         
         frameB = LabelFrame(master, text = "Введите коэффициенты для уравнения b : ")
         frameB.pack(anchor=W)
@@ -62,6 +71,12 @@ class form:
         self.labelB[2].config(text = " sin(pi * x / l) + ")
         self.labelB[3].config(text = " cos(2 * pi * x / l) + ")
         self.labelB[4].config(text = " sin(2 * pi * x / l) ")
+
+        self.coefB[0].insert(0, "0")
+        self.coefB[1].insert(0, "0.25")
+        self.coefB[2].insert(0, "-0.25")
+        self.coefB[3].insert(0, "-0.5")
+        self.coefB[4].insert(0, "-0.5")
 
         ButtonFrame = Frame(master)
         ButtonFrame.pack(anchor=W, padx = 3, pady = 3   )
