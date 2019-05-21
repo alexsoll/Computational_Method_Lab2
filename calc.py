@@ -8,16 +8,15 @@ import math
 Fi_a = 3.5
 Fi_b = 1
 Fi_c = 1
-
-def FuncFi(x, l):
-    return Fi_a * 1 + Fi_b * math.cos(math.pi * x / l) + Fi_c * math.cos(2 * math.pi * x / l)
-
-
 B_a = 0
 B_b = 0.25
 B_c = -0.25
 B_d = -0.5
 B_e = -0.5
+
+def FuncFi(x, l):
+    return Fi_a * 1 + Fi_b * math.cos(math.pi * x / l) + Fi_c * math.cos(2 * math.pi * x / l)
+
 
 def FuncB(x, l):
     return B_a * 1 + B_b * math.cos(math.pi * x / l) + B_c * math.sin(math.pi * x / l) + \
@@ -27,8 +26,15 @@ def FuncB(x, l):
 def RightConst(y, l, tau):
     x = np.zeros(len(y))
     c = l / 2
+    simpson = 0
+    #simpson = (l / 6) * (FuncB(0, l) + 4 * FuncB(c, l) + FuncB(l, l))
+    simpson += (1 / 3) * ( FuncB(0, l) * y[0] + FuncB(l-2, l) * y[l-2] )
 
-    simpson = (l / 6) * (FuncB(0, l) + 4 * FuncB(c, l) + FuncB(l, l))
+    for i in range(2, l-1, 2):
+        simpson += (2 / 3) * (FuncB(i, l) * y[i])
+
+    for i in range(1, l-1, 2):
+        simpson += (4 / 3) * (FuncB(i, l) * y[i])
 
     for i in range(1, len(x)):
         x[i] = y[i] * ((1 / tau) + FuncB(i, l) - simpson)
@@ -37,6 +43,8 @@ def RightConst(y, l, tau):
 
 def main(args):
     print(args)
+    global T ; global a ; global l ; global tau ; global h ; global Fi_a 
+    global Fi_b ; global Fi_c ; global B_a ; global B_b ; global B_d ; global B_c ; global B_e ;
     T = args[0] ; l = args[1] ; a = args[2] ; h = args[3] ; tau = args[4]
     Fi_a = args[5] ; Fi_b = args[6] ; Fi_c = args[7]
     B_a = args[8] ; B_b = args[9] ; B_c = args[10] ; B_d = args[11] ; B_e = args[12]
@@ -55,7 +63,7 @@ def main(args):
         y0[i] = FuncFi(i, l)
         b[i] = FuncB(i, l)
 
-    coef1 = (-1) * (a * a) / (h * h)
+    coef1 = (-1) * (a * a) / (h * h)    
     coef2 = ((2 * a * a) / (h * h)) + (1 / tau)
 
     for i in range(1, l - 2):
@@ -92,6 +100,7 @@ def main(args):
         yb = np.linalg.solve(B, tmp_y)
 
     x = [i for i in range(0, l + 1)]
+
     plt.plot(x, yb, color='black')
     plt.grid()
     plt.minorticks_on()

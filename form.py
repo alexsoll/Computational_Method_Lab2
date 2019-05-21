@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 from math import floor
 import calc
+import new_calc
 
 class form:
     def __init__(self, master):
@@ -24,7 +25,7 @@ class form:
         self.labelA.pack(side = LEFT)
         self.a = Entry(frame, width = 5)
         self.a.pack(side = LEFT)
-        self.a.insert(0, "2")
+        self.a.insert(0, "1")
         self.labelH = Label(frame, text = "h : ")
         self.labelH.pack(side = LEFT)
         self.h = Entry(frame, width = 5)
@@ -34,7 +35,7 @@ class form:
         self.labelTau.pack(side = LEFT)
         self.tau = Entry(frame, width = 5)
         self.tau.pack(padx = 3, pady = 7, side = LEFT)
-        self.tau.insert(0, "1")
+        self.tau.insert(0, "0.1")
 
         self.coefFi = []
         self.labelFi = []
@@ -53,9 +54,9 @@ class form:
         self.labelFi[1].config(text = " cos(pi * x / l) + ")
         self.labelFi[2].config(text = " cos(2 * pi * x / l) ")
 
-        self.coefFi[0].insert(0, "3")
-        self.coefFi[1].insert(0, "1")
-        self.coefFi[2].insert(0, "1")
+        self.coefFi[0].insert(0, "0.14")
+        self.coefFi[1].insert(0, "0")
+        self.coefFi[2].insert(0, "0")
         
         frameB = LabelFrame(master, text = "Введите коэффициенты для уравнения b : ")
         frameB.pack(anchor=W)
@@ -73,10 +74,10 @@ class form:
         self.labelB[4].config(text = " sin(2 * pi * x / l) ")
 
         self.coefB[0].insert(0, "0")
-        self.coefB[1].insert(0, "0.25")
-        self.coefB[2].insert(0, "-0.25")
-        self.coefB[3].insert(0, "-0.5")
-        self.coefB[4].insert(0, "-0.5")
+        self.coefB[1].insert(0, "1")
+        self.coefB[2].insert(0, "0")
+        self.coefB[3].insert(0, "0")
+        self.coefB[4].insert(0, "0")
 
         ButtonFrame = Frame(master)
         ButtonFrame.pack(anchor=W, padx = 3, pady = 3   )
@@ -86,7 +87,7 @@ class form:
     def Calculate(self, master):
         self.args = []
         self.args.append(int(self.T.get()))
-        self.args.append(int(self.l.get()))
+        self.args.append(float(self.l.get()))
         self.args.append(float(self.a.get()))
         self.args.append(float(self.h.get()))
         self.args.append(float(self.tau.get()))
@@ -102,7 +103,9 @@ class form:
         self.args.append(float(self.coefB[3].get()))
         self.args.append(float(self.coefB[4].get()))
 
-        calc.main(self.args)
+        #calc.main(self.args)
+        new_calc.main(self.args)
+        
 
 
 root = Tk()
